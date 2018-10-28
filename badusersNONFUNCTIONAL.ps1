@@ -15,9 +15,9 @@ if($invalidusers.Length -gt 0)
         $invalidUsers| Remove-LocalGroupMember -group "Users"
         echo "Removed `r`n$invalidUsers"
         }
-    }
-    else
+    elsew
     {
-    echo "All Valid"        
- }
+    echo "All Valid"     
+    }
+}
  
