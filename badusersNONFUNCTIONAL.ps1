@@ -1,7 +1,10 @@
 <#deletes bad users from computer
 needs goodusers.txt from desktop in which Administrator be included#>
-$goodusers = get-content C:\Users\PCDC\Desktop\goodusers.txt | foreach-object {"$env:computername\$_"}
-$currentusers = get-localgroupmember -group "Users"
+$admins = get-localgroupmember "ADministrators"
+New-LocalGroup "script"
+Get-LocalUser | Add-LocalGroupMember -group "script" | where-object{$_ -notcontains $_.NAME}
+$goodusers = get-content C:\Users\joe\Desktop\goodusers.txt | foreach-object {"$env:computername\$_"}
+$currentusers = get-localgroupmember -group "script"
 $invalidUsers = $currentUsers | where-object{$goodUsers -notcontains $_.name}
 if($invalidusers.Length -gt 0)
 {
@@ -17,3 +20,4 @@ if($invalidusers.Length -gt 0)
     {
     echo "All Valid"        
  }
+ 
